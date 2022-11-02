@@ -1,22 +1,22 @@
-const express = require("express");
-const task = require("../models/task");
+const express = require('express');
 const router = express.Router();
 
-const {Task1, Task2} = require("../models/task");
+// Task Model
+const Task = require('../models/task');
 
-router.get("/", async (req, res) => {
-    const tasks = await Task1.find()
-    console.log(tasks);
-    res.json(tasks);
-
+// GET all Tasks
+router.get('/', async (req, res) => {
+  const tasks = await Task.find();
+  res.json(tasks);
 });
 
-router.post("/", async (req, res) => {
+// ADD a new task
+router.post('/', async (req, res) => {
     const { title, description } = req.body;
-    const task1 = new Task1({ title, description });
-    await task1.save();
-    res.json({ status: "Task1 Saved" });
-});
+    const task = new Task({title, description});
+    await task.save();
+    res.json({status: 'Task Saved'});
+  });
 
 router.get("/:id", async (req, res) => { 
     const task = await Task1.findById(req.params.id);
